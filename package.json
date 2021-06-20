@@ -1,0 +1,23 @@
+{
+  "name": "mine-sweeper-solver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "solveMine.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sz-sebestyen/mine-sweeper-solver.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sz-sebestyen/mine-sweeper-solver/issues"
+  },
+  "homepage": "https://github.com/sz-sebestyen/mine-sweeper-solver#readme",
+  "devDependencies": {
+    "jest": "^27.0.4"
+  }
+}
