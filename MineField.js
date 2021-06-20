@@ -2,7 +2,6 @@ const Site = require("./Site");
 
 module.exports = class MineField {
   constructor(map, numberOfMines, dig) {
-    this.digInt = (i, j) => parseInt(dig(i, j));
     this.numberOfMines = numberOfMines;
     this.numberOfHiddenMines = numberOfMines;
     this.field = map
