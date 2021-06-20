@@ -5,9 +5,11 @@ module.exports = class Site {
     this.j = j;
     this.isMarkedAsMine = () => this.tresure === "x";
     this.isDugUp = () => Number.isInteger(this.tresure);
+    this.isUnknown = () => this.tresure === "?";
     this.dig = () => {
       if (this.isDugUp()) throw "This site is already dug up!";
-      if (this.isMarkedAsMine()) throw "This site is marked as a mine!";
+      if (this.isMarkedAsMine())
+        throw "This site is marked as a mine, don't dig here!";
       this.tresure = parseInt(dig(this.i, this.j));
     };
   }
@@ -21,6 +23,10 @@ module.exports = class Site {
   }
 
   getNumberOfMinesAround() {
+    if (this.isMarkedAsMine())
+      throw "This site is marked with an 'x', no number to show!";
+    if (this.isUnknown())
+      throw "This site is marked with an '?', no number to show!";
     return this.tresure;
   }
 };
