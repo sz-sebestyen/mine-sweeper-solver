@@ -10,6 +10,8 @@ module.exports = class MineField {
       .map((row, i) =>
         row.split(" ").map((tresure, j) => new Site(tresure, i, j, dig))
       );
+    this.i_max = field.length;
+    this.j_max = field[0].length;
   }
 
   toString() {
