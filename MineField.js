@@ -37,4 +37,19 @@ module.exports = class MineField {
 
     return indicesInField.map(({ i, j }) => this.field[i][j]);
   }
+
+  getDigableSitesAround(site) {
+    const sitesAround = this.getSitesAround(site);
+    return sitesAround.filter((s) => s.isUnknown());
+  }
+
+  isUsefulSite(site) {
+    return site.isDugUp() && this.getDigableSitesAround(site).length;
+  }
+
+  getUsefulSites() {
+    return this.field
+      .map((row) => row.filter((site) => isUsefulSite(site)))
+      .flat();
+  }
 };
