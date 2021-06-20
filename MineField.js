@@ -9,8 +9,8 @@ module.exports = class MineField {
       .map((row, i) =>
         row.split(" ").map((tresure, j) => new Site(tresure, i, j, dig))
       );
-    this.i_max = field.length;
-    this.j_max = field[0].length;
+    this.i_max = this.field.length;
+    this.j_max = this.field[0].length;
   }
 
   toString() {
@@ -40,7 +40,9 @@ module.exports = class MineField {
 
   getDigableSitesAround(site) {
     const sitesAround = this.getSitesAround(site);
-    return sitesAround.filter((s) => s.isUnknown());
+    const digables = sitesAround.filter((s) => s.isUnknown());
+    site.digables = digables;
+    return digables;
   }
 
   isUsefulSite(site) {
@@ -49,7 +51,19 @@ module.exports = class MineField {
 
   getUsefulSites() {
     return this.field
-      .map((row) => row.filter((site) => isUsefulSite(site)))
+      .map((row) => row.filter((site) => this.isUsefulSite(site)))
       .flat();
+  }
+
+  init() {
+    this.usefulSites = this.getUsefulSites();
+  }
+
+  digAroundZeros() {
+    this.usefulSites.forEach(
+      (site) =>
+        !site.getNumberOfMinesAround() &&
+        site.digables.forEach((site) => site.isUnknown() && site.dig())
+    );
   }
 };
