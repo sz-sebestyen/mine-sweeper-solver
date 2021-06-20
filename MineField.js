@@ -60,10 +60,17 @@ module.exports = class MineField {
   }
 
   digAroundZeros() {
+    let atLeastOnedig;
     this.usefulSites.forEach(
       (site) =>
         !site.getNumberOfMinesAround() &&
-        site.digables.forEach((site) => site.isUnknown() && site.dig())
+        site.digables.forEach((site) => {
+          if (site.isUnknown()) {
+            site.dig();
+            atLeastOnedig = true;
+          }
+        })
     );
+    return atLeastOnedig;
   }
 };

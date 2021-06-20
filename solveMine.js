@@ -4,7 +4,8 @@ module.exports = function solveMine(map, n, open) {
   const mineField = new MineField(map, n, open);
 
   mineField.init();
-  mineField.digAroundZeros();
+
+  while (mineField.digAroundZeros()) {}
 
   console.log(mineField.toString());
 
