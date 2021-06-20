@@ -19,4 +19,23 @@ module.exports = class MineField {
       .map((sites) => sites.map((site) => site.toString()).join(" "))
       .join("\n");
   }
+
+  getSitesAround(site) {
+    const getAllIndices = ({ i, j }) => [
+      { i: i - 1, j: j - 1 },
+      { i: i - 1, j },
+      { i: i - 1, j: j + 1 },
+      { i, j: j - 1 },
+      { i, j: j + 1 },
+      { i: i + 1, j: j - 1 },
+      { i: i + 1, j },
+      { i: i + 1, j: j + 1 },
+    ];
+
+    const indicesInField = getAllIndices(site).filter(
+      ({ i, j }) => i < this.i_max && i > -1 && j < this.j_max && j > -1
+    );
+
+    return indicesInField.map(({ i, j }) => this.field[i][j]);
+  }
 };
