@@ -18,7 +18,7 @@ const filterAround = (around, maxi, maxj) => {
 function openAroundZeros(mineField, open) {
   mineField.forEach((row, rIndex) => {
     row.forEach((mine, mIndex) => {
-      if (mine === "0") {
+      if (mine === 0) {
         const aroundIndices = filterAround(
           around(rIndex, mIndex),
           mineField.length,
@@ -36,9 +36,14 @@ function openAroundZeros(mineField, open) {
 }
 
 module.exports = function solveMine(map, n, open) {
-  const mineField = map.split("\n").map((row) => row.split(" "));
+  const openAsInt = (i, j) => parseInt(open(i, j));
+  const mineField = map
+    .split("\n")
+    .map((row) =>
+      row.split(" ").map((tile) => (tile === "?" ? "?" : parseInt(tile)))
+    );
 
-  // console.log(openAroundZeros(mineField, open));
+  console.log(openAroundZeros(mineField, openAsInt));
 
   return "?";
 };
