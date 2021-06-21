@@ -38,6 +38,35 @@ module.exports = class MineField {
     return indicesInField.map(({ i, j }) => this.field[i][j]);
   }
 
+  getSitesAcross(site) {
+    const getAllIndices = ({ i, j }) => [
+      { i: i - 2, j: j - 2 },
+      { i: i - 2, j: j - 1 },
+      { i: i - 2, j },
+      { i: i - 2, j: j + 1 },
+      { i: i - 2, j: j + 2 },
+
+      { i: i - 1, j: j - 2 },
+      { i: i - 1, j: j + 2 },
+      { i, j: j - 2 },
+      { i, j: j + 2 },
+      { i: i + 1, j: j - 2 },
+      { i: i + 1, j: j + 2 },
+
+      { i: i + 2, j: j - 2 },
+      { i: i + 2, j: j - 1 },
+      { i: i + 2, j },
+      { i: i + 2, j: j + 1 },
+      { i: i + 2, j: j + 2 },
+    ];
+
+    const indicesInField = getAllIndices(site).filter(
+      ({ i, j }) => i < this.i_max && i > -1 && j < this.j_max && j > -1
+    );
+
+    return indicesInField.map(({ i, j }) => this.field[i][j]);
+  }
+
   getDigableSitesAround(site) {
     const sitesAround = this.getSitesAround(site);
     const digables = sitesAround.filter((s) => s.isUnknown());
@@ -47,6 +76,18 @@ module.exports = class MineField {
 
   isUsefulSite(site) {
     return site.isDugUp() && this.getDigableSitesAround(site).length;
+  }
+
+  getUsefulSitesAround(site) {
+    const sitesAround = this.getSitesAround(site);
+    const usefulSites = sitesAround.filter((site) => this.isUsefulSite(site));
+    return usefulSites;
+  }
+
+  getUsefulSitesAcross(site) {
+    const sitesAround = this.getSitesAcross(site);
+    const usefulSites = sitesAround.filter((site) => this.isUsefulSite(site));
+    return usefulSites;
   }
 
   getUsefulSites() {
